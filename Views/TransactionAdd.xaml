@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFinances.Views.TransactionAdd"
+             Title="TransactionAdd">
+    <VerticalStackLayout Spacing="10">
+        <!--Border é usado para criar o botão preto com bordas arredondadas-->
+        <Border
+            Margin="15"
+            Padding="15"
+            Background="#000000"
+            Stroke="Transparent"
+            StrokeShape="RoundRectangle 30">
+            <Grid ColumnDefinitions="*, 30" RowDefinitions="Auto">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Novo"
+                    FontSize="18"
+                    Margin="30,0,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TextColor="#FFF"/>
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    Source="close.png"
+                    WidthRequest="17">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+        </Border>
+
+        <!--RadioButtons Receita e Despesas-->
+        <Grid ColumnDefinitions="*,*" Margin="25, 0">
+            <RadioButton Padding="5,0,0,0" IsChecked="True" Content="Receita"/>
+            <RadioButton Padding="5,0,0,0" Grid.Column="1" HorizontalOptions="End" Content="Despesa" />
+        </Grid>
+
+        <Entry Placeholder="Nome" Margin="15, 0" />
+
+        <DatePicker Margin="15, 0"/>
+
+        <Entry Placeholder="Valor" Margin="15, 0"/>
+
+        <Button Text="Salvar" HorizontalOptions="Center" Margin="15, 0" />
+    </VerticalStackLayout>
+
+</ContentPage>
