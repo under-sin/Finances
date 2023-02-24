@@ -16,7 +16,8 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Text="Atualizar"
-                    FontSize="18"
+                    FontSize="20"
+                    FontFamily="OpenSansSemibold"
                     Margin="30,0,0,0"
                     HorizontalOptions="Center"
                     TextColor="#FFF"/>
@@ -27,24 +28,49 @@
                     Source="close.png"
                     WidthRequest="17">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        <TapGestureRecognizer Tapped="TapGestureRecognizerTapped_ToClose" />
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
         </Border>
 
+        <Label
+            x:Name="LabelError"
+            Margin="30,0"
+            IsVisible="False"
+            TextColor="Red"/>
         <!--RadioButtons Receita e Despesas-->
         <Grid ColumnDefinitions="*,*" Margin="25, 0">
-            <RadioButton Padding="5,0,0,0" IsChecked="True" Content="Receita"/>
-            <RadioButton Padding="5,0,0,0" Grid.Column="1" HorizontalOptions="End" Content="Despesa" />
+            <RadioButton
+                x:Name="RadioIncome"
+                Padding="5,0"
+                IsChecked="True"
+                Content="Receita"/>
+            <RadioButton
+                x:Name="RadioExpense"
+                Padding="5,0,0,0"
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Content="Despesa" />
         </Grid>
 
-        <Entry Placeholder="Nome" Margin="15, 0" />
+        <Entry
+            x:Name="EntryName"
+            Placeholder="Nome"
+            Margin="15, 0" />
 
-        <DatePicker Margin="15, 0"/>
+        <DatePicker x:Name="DatePickerDate" Margin="15, 0"/>
 
-        <Entry Placeholder="Valor" Margin="15, 0"/>
+        <Entry
+            x:Name="EntryValue"
+            Placeholder="Valor"
+            Margin="15, 0"/>
 
-        <Button Text="Salvar" HorizontalOptions="Center" Margin="15, 0" />
+        <Button
+            Text="Salvar"
+            Clicked="OnClickedButton_Save"
+            HorizontalOptions="Center"
+            FontFamily="OpenSansSemibold"
+            Margin="15, 0" />
     </VerticalStackLayout>
 </ContentPage>

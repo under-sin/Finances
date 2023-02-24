@@ -4,11 +4,11 @@ namespace AppFinances;
 
 public partial class App : Application
 {
-	public App()
+	public App(TransactionList listPage)
 	{
 		InitializeComponent();
 		// adicionando navegação no aplicativo
-		MainPage = new NavigationPage(new TransactionList());
+		MainPage = new NavigationPage(listPage);
 	}
 }
 

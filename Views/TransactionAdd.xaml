@@ -4,19 +4,22 @@
              x:Class="AppFinances.Views.TransactionAdd"
              Title="TransactionAdd">
     <VerticalStackLayout Spacing="10">
-        <!--Border é usado para criar o botão preto com bordas arredondadas-->
+        <!--Border é usado para criar o elemento preto com bordas arredondadas-->
+        <!--Stroke transparent deixa a borda transparente-->
+        <!--StrokeShape define o arrendondamento das bordas-->
         <Border
             Margin="15"
             Padding="15"
             Background="#000000"
-            Stroke="Transparent"
+            Stroke="Transparent" 
             StrokeShape="RoundRectangle 30">
             <Grid ColumnDefinitions="*, 30" RowDefinitions="Auto">
                 <Label
                     Grid.Row="0"
                     Grid.Column="0"
                     Text="Novo"
-                    FontSize="18"
+                    FontSize="20"
+                    FontFamily="OpenSansSemibold"
                     Margin="30,0,0,0"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
@@ -27,26 +30,52 @@
                     HorizontalOptions="Center"
                     Source="close.png"
                     WidthRequest="17">
+                    <!--Podemos colocar ações em qualquer elemento usando GestureRecognizers-->
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        <TapGestureRecognizer Tapped="TapGestureRecognizerTapped_ToClose" />
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
         </Border>
 
+        <Label
+            x:Name="LabelError"
+            Margin="30,0"
+            IsVisible="False"
+            TextColor="Red"/>
         <!--RadioButtons Receita e Despesas-->
         <Grid ColumnDefinitions="*,*" Margin="25, 0">
-            <RadioButton Padding="5,0,0,0" IsChecked="True" Content="Receita"/>
-            <RadioButton Padding="5,0,0,0" Grid.Column="1" HorizontalOptions="End" Content="Despesa" />
+            <RadioButton
+                x:Name="RadioIncome"
+                Padding="5,0"
+                IsChecked="True"
+                Content="Receita"/>
+            <RadioButton
+                x:Name="RadioExpense"
+                Padding="5,0,0,0"
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Content="Despesa" />
         </Grid>
 
-        <Entry Placeholder="Nome" Margin="15, 0" />
+        <Entry
+            x:Name="EntryName"
+            Placeholder="Nome"
+            Margin="15, 0" />
 
-        <DatePicker Margin="15, 0"/>
+        <DatePicker x:Name="DatePickerDate" Margin="15, 0"/>
 
-        <Entry Placeholder="Valor" Margin="15, 0"/>
+        <Entry
+            x:Name="EntryValue"
+            Placeholder="Valor"
+            Margin="15, 0"/>
 
-        <Button Text="Salvar" HorizontalOptions="Center" Margin="15, 0" />
+        <Button
+            Text="Salvar"
+            Clicked="OnClickedButton_Save"
+            HorizontalOptions="Center"
+            FontFamily="OpenSansSemibold"
+            Margin="15, 0" />
     </VerticalStackLayout>
 
 </ContentPage>

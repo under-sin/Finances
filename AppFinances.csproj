@@ -55,6 +55,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="LiteDB" Version="5.0.15" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,11 +64,15 @@
 	  <None Remove="Repositories\" />
 	  <None Remove="Views\" />
 	  <None Remove="Resources\Images\close.svg" />
+	  <None Remove="Libraries\" />
+	  <None Remove="Libraries\Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Models\" />
 	  <Folder Include="Repositories\" />
 	  <Folder Include="Views\" />
+	  <Folder Include="Libraries\" />
+	  <Folder Include="Libraries\Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\close.svg" />
