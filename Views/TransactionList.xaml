@@ -4,12 +4,15 @@
              xmlns:converters="clr-namespace:AppFinances.Libraries.Converters"
              x:Class="AppFinances.Views.TransactionList"
              Title="Transações"
-             NavigationPage.HasNavigationBar="False"> <!--NavigationPage.HasNavigationBar="False" remove o titulo-->
+             NavigationPage.HasNavigationBar="False">
+    <!--NavigationPage.HasNavigationBar="False" remove o titulo-->
     <ContentPage.Resources>
         <ResourceDictionary Source="/Resources/Styles/Colors.xaml"/>
         <ResourceDictionary>
-            <converters:TransactionValueColor x:Key="TransactionValueColor"/>
-            <converters:TrasactionValueConverter x:Key="TrasactionValueConverter"/>
+            <converters:TransactionNameColorConverter x:Key="TransactionNameColorConverter"/>
+            <converters:TransactionNameConverter x:Key="TransactionNameConverter"/>
+            <converters:TransactionValueColorConverter x:Key="TransactionValueColorConverter"/>
+            <converters:TransactionValueConverter x:Key="TransactionValueConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -20,28 +23,45 @@
                     <Grid Padding="15" ColumnDefinitions="50,*,Auto">
                         <Grid.GestureRecognizers>
                             <!--Binding . passa o objeto inteiro (selecionado)-->
-                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizerTapped_To_TransactionEdit" /> 
+                            <TapGestureRecognizer
+                                CommandParameter="{Binding .}"
+                                Tapped="TapGestureRecognizerTapped_To_TransactionEdit" />
                         </Grid.GestureRecognizers>
-                        <Label
-                            Text="S"
-                            BackgroundColor="White"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            FontSize="20 "/>
+                        <Border
+                            BackgroundColor="{Binding Name, Converter={StaticResource TransactionNameColorConverter}}"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 20">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    CommandParameter="{Binding .}"
+                                    Tapped="TapGestureRecognizerTapped_To_Delete"/>
+
+                            </Border.GestureRecognizers>
+                            <Label 
+                                Margin="11,2"
+                                ZIndex="5"
+                                FontFamily="OpenSansSemibold"
+                                Padding="2"
+                                FontSize="18"
+                                Text="{Binding Name, Converter={StaticResource TransactionNameConverter}}"/>
+                        </Border>
+
                         <VerticalStackLayout Grid.Column="1">
                             <Label Text="{Binding Name}"/>
                             <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" TextColor="#BABABA"/>
                         </VerticalStackLayout>
                         <Label
                             Grid.Column="2"
-                            Text="{Binding ., Converter={StaticResource TrasactionValueConverter}}"
-                            TextColor="{Binding ., Converter={StaticResource TransactionValueColor}}"
+                            Text="{Binding ., Converter={StaticResource TransactionValueConverter}}"
+                            TextColor="{Binding ., Converter={StaticResource TransactionValueColorConverter}}"
                             VerticalOptions="Center"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView> 
- 
+        </CollectionView>
+
         <!--<Button HorizontalOptions="Center" Padding="30, 0" Text="Edit" Clicked="OnButtonClicked_To_TransactionEdit"/>-->
 
         <Border
@@ -66,7 +86,7 @@
                 <Button
                     Grid.RowSpan="2"
                     Grid.Column="1"
-                    FontSize="48"
+                    FontSize="{OnPlatform Android=36, Default=48}"
                     Padding="0"
                     CornerRadius="27"
                     HeightRequest="54"

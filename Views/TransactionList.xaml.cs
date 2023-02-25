@@ -64,4 +64,60 @@ public partial class TransactionList : ContentPage
         transactionEdit.SetTransactionToEdit(transaction);
         Navigation.PushModalAsync(transactionEdit);
     }
+
+    private async void TapGestureRecognizerTapped_To_Delete(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
+    {
+        await AnimationBorder((Border)sender, true);
+
+        // mostra uma alert na tela, caso o usuário escolha sim "true" deleta o item selecionado
+        var result = await App.Current.MainPage.DisplayAlert("Excluir", "Tem certeza que seja excluir?", "Sim", "Não");
+
+        if (result)
+        {
+            //e.parameter é outra forma de pegar o CommandParameter que está passando o objeto
+            Transaction transaction = (Transaction)e.Parameter;
+            _repository.Delete(transaction);
+
+            Reload();
+        }
+        else
+        {
+            await AnimationBorder((Border)sender, false);
+        }
+    }
+
+    private Color _borderOriginalBackgroundColor;
+    private String _textOriginalValue;
+    public async Task AnimationBorder(Border border, bool IsDeleteAnimation)
+    {
+        // quando o elemente só tem 1 filho, usamos o content,
+        // quando tempo mais de um, usamos o Child
+        var label = (Label)border.Content;
+
+        if (IsDeleteAnimation)
+        {
+            _borderOriginalBackgroundColor = border.BackgroundColor;
+            _textOriginalValue = label.Text;
+
+            await border.RotateYTo(90, 300);
+
+            border.BackgroundColor = Colors.Red;
+
+            label.TextColor = Colors.White;
+            label.Text = "X";
+
+            await border.RotateYTo(180, 300);
+        }
+        else
+        {
+            await border.RotateYTo(90, 300);
+
+            border.BackgroundColor = _borderOriginalBackgroundColor;
+
+            label.TextColor = Colors.Black;
+            label.Text = _textOriginalValue;
+
+            await border.RotateYTo(0, 300);
+        }
+    }
 }

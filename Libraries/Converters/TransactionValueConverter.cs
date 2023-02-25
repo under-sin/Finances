@@ -4,18 +4,18 @@ using AppFinances.Models;
 
 namespace AppFinances.Libraries.Converters;
 
-public class TransactionValueColor : IValueConverter
+public class TransactionValueConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        // altera a cor do valor da transação de acordo com o tipo
+        // adiciona o sinal de menos (-) quando a transação é expense
         Transaction transaction = (Transaction)value;
         if (transaction == null)
-            return Colors.Black;
+            return "";
         else if (transaction.Type == TransactionType.Income)
-            return Color.FromArgb("#FF939E5A");
+            return transaction.Value.ToString("C");
         else
-            return Color.FromArgb("#FFFF5232");
+            return $"- {transaction.Value.ToString("C")}";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

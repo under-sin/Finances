@@ -32,9 +32,6 @@ public partial class TransactionAdd : ContentPage
 
         // Published - vai enviar a mensagem para o transactionList e atualizar a lista com o novo valor
         WeakReferenceMessenger.Default.Send<string>(string.Empty);
-
-        var count = _repository.GetAll().Count;
-        App.Current.MainPage.DisplayAlert("Alert", $"Exitem {count} registro(s) no banco ", "OK");
     }
 
     private void SaveTransactionInDatabase()
